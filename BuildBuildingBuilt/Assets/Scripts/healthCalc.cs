@@ -13,11 +13,11 @@ public class healthCalc : MonoBehaviour {
     int wall2Health;
     int supportHealth;
     string path;
-    Texture[] allTextures;
+    Material[] allTextures;
     List<TextureHealth> tHealthList = new List<TextureHealth>();
 	// Use this for initialization
 	void Start () {
-        allTextures = Resources.FindObjectsOfTypeAll(typeof(Texture)) as Texture[];
+        allTextures = Resources.FindObjectsOfTypeAll(typeof(Material)) as Material[];
         path = Application.streamingAssetsPath + "/TextureHealth.json";
         string jsonString = File.ReadAllText(path);
         TextureHealth tHealth = JsonUtility.FromJson<TextureHealth>(jsonString);
