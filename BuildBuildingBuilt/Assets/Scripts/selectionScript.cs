@@ -8,32 +8,47 @@ public class selectionScript : MonoBehaviour {
     MeshFilter[] supports = new MeshFilter[5];
     MeshFilter[] extras = new MeshFilter[5];
     MeshFilter[][] arrays = new MeshFilter[5][];
-    // Use this for initialization
-    void Start () {
+
+    Material[] roofMat = new Material[5];
+    Material[] wallMat = new Material[5];
+    Material[] foundationMat = new Material[5];
+    Material[] supportMat = new Material[5];
+    Material[] extraMat = new Material[5];
+    Material[][] matArray = new Material[5][];
+
+    void Start() {
         arrays[0] = roofs;
         arrays[1] = walls;
         arrays[2] = foundations;
         arrays[3] = supports;
         arrays[4] = extras;
 
-        //Initialize all of the different meshes here
-
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+        matArray[0] = roofMat;
+        matArray[1] = wallMat;
+        matArray[2] = foundationMat;
+        matArray[3] = supportMat;
+        matArray[4] = extraMat;
+    }
 
     public void selectPart(int choice) {
         int category;
         GameObject placeHolder = null;
 
+        //Initialize meshes
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                arrays[i][j] = GameObject.Find("test2").GetComponent<MeshFilter>();
+                 arrays[i][j] = GameObject.Find("test").GetComponent<MeshFilter>();
             }
         }
+
+        //Initialize materials
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                matArray[i][j] = GameObject.Find("test").GetComponent<Renderer>().material;
+            }
+        }
+        
+
 
         if (choice > 9 && choice < 20) {
             choice -= 10;
@@ -68,7 +83,9 @@ public class selectionScript : MonoBehaviour {
                 placeHolder = GameObject.FindGameObjectWithTag("extra");
                 break;
         }
+
         placeHolder.GetComponent<MeshFilter>().mesh = arrays[category][choice].mesh;
-        placeHolder.GetComponent<Renderer>().enabled = !placeHolder.GetComponent<Renderer>().enabled;
+        placeHolder.GetComponent<Renderer>().enabled = true;
+        placeHolder.GetComponent<Renderer>().material = matArray[category][choice];
     }
 }
