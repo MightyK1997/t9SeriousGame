@@ -1,0 +1,33 @@
+{
+	"textures":
+	[
+					{
+						"name": "testMaterial",
+						"health": "70",
+						"money": "100"
+					},
+					{
+						"name": "material2",
+						"health": "20",
+						"money": "300"
+					},
+					{
+						"name": "test3Material",
+						"health": "70",
+						"money": "100"
+
+					},
+					{
+						"name": "test4Material",
+						"health": "70",
+						"money": "100"
+					},
+					{
+						"name": "test5Material",
+						"health": "70",
+						"money": "100"
+					}
+
+	]
+}
+

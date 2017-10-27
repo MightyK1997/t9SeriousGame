@@ -9,11 +9,10 @@ public class showHealth : MonoBehaviour {
     //healthCalc health;
 	// Use this for initialization
 	void Start () {
-
     }
 	
 	// Update is called once per frame
 	void Update () {
-        healthText.text = healthCalc.houseHealth;
+        healthText.text = (healthCalc.houseHealth).ToString();
 	}
 }

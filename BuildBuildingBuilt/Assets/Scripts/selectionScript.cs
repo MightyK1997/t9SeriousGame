@@ -16,6 +16,9 @@ public class selectionScript : MonoBehaviour {
     Material[] extraMat = new Material[5];
     Material[][] matArray = new Material[5][];
 
+    healthCalc hCalc;
+    moneyCalc mCalc;
+
     void Start() {
         arrays[0] = roofs;
         arrays[1] = walls;
@@ -37,14 +40,18 @@ public class selectionScript : MonoBehaviour {
         //Initialize meshes
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                 arrays[i][j] = GameObject.Find("test").GetComponent<MeshFilter>();
+                 arrays[i][j] = GameObject.Find("test2").GetComponent<MeshFilter>();
             }
         }
 
         //Initialize materials
         for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                matArray[i][j] = GameObject.Find("test").GetComponent<Renderer>().material;
+            for (int j = 0; j < 2; j++) {
+                matArray[i][j] = GameObject.Find("test2").GetComponent<Renderer>().material;
+            }
+            for(int j = 2; j < 5; j++)
+            {
+                matArray[i][j] = GameObject.Find("test3").GetComponent<Renderer>().material;
             }
         }
         
@@ -87,5 +94,7 @@ public class selectionScript : MonoBehaviour {
         placeHolder.GetComponent<MeshFilter>().mesh = arrays[category][choice].mesh;
         placeHolder.GetComponent<Renderer>().enabled = true;
         placeHolder.GetComponent<Renderer>().material = matArray[category][choice];
+        healthCalc.newUpdate();
+        moneyCalc.newUpdate();
     }
 }
