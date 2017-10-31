@@ -42,33 +42,6 @@ public class healthCalc : MonoBehaviour {
         allTagsToList();
         foreach (var item in tHealthList)
         {
-            //Debug.Log(item.money);
-            //foreach (var texture in allTextures)
-            //{
-            //    if (item.name == texture.name)
-            //    {
-            //        if (texture.name.Contains("roof"))
-            //        {
-            //            roofHealth = item.health;
-            //        }
-            //        if (texture.name.Contains("foundation"))
-            //        {
-            //            foundationHealth = item.health;
-            //        }
-            //        if (texture.name.Contains("wall1"))
-            //        {
-            //            wall1Health = item.health;
-            //        }
-            //        if (texture.name.Contains("wall2"))
-            //        {
-            //            wall2Health = item.health;
-            //        }
-            //        if (texture.name.Contains("support"))
-            //        {
-            //            supportHealth = item.health;
-            //        }
-            //    }
-            //}
             if (selectionScript.prevMaterial.name.StartsWith(item.name))
             {
                 prevHealth = item.health;
@@ -99,8 +72,7 @@ public class healthCalc : MonoBehaviour {
 
         if (roof.activeSelf && foundation.activeSelf && wall1.activeSelf && wall2.activeSelf && support.activeSelf)
         {
-            int subtractHealth = 50;
-            houseHealth = houseHealth - subtractHealth;
+            houseHealth = houseHealth - 50;
         }
     }
     static void allTagsToList()

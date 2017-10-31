@@ -94,7 +94,6 @@ public class selectionScript : MonoBehaviour {
                 break;
         }
         prevMaterial = placeHolder.GetComponent<Renderer>().material;
-        Debug.Log(prevMaterial);
         placeHolder.GetComponent<MeshFilter>().mesh = arrays[category][choice].mesh;
         placeHolder.GetComponent<Renderer>().enabled = true;
         placeHolder.GetComponent<Renderer>().material = matArray[category][choice];

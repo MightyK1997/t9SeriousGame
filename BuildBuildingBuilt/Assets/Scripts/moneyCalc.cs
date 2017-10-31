@@ -7,7 +7,7 @@ public class moneyCalc : MonoBehaviour {
 
     static int subtractMoney;
     static string path;
-    public static float totalMoney = 1000;
+    public static float totalMoney = 1500;
     static TextureDetails[] tDetails;
     static List<GameObject> allObjectsInScreen;
     static int prevMoney;

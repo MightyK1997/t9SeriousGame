@@ -1,10 +1,10 @@
 sceneSetups:
-- path: Assets/MainMenuScene.unity
-  isLoaded: 1
-  isActive: 0
 - path: Assets/GameStartScene.unity
   isLoaded: 1
   isActive: 1
+- path: Assets/MainMenuScene.unity
+  isLoaded: 0
+  isActive: 0
 - path: Assets/MainGameBuild.unity
   isLoaded: 0
   isActive: 0
