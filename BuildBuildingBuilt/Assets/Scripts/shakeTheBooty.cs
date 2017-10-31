@@ -29,10 +29,21 @@ public class shakeTheBooty : MonoBehaviour {
         camera = Camera.main;
         for (int i = 0; i < 10; i++)
         {
-            camera.transform.position = new Vector3(5, 1, -10);
+            camera.transform.position = new Vector3(0.25f, 1, -10);
+            yield return new WaitForSeconds(0.02f);
+            camera.transform.position = new Vector3(0.5f, 1, -10);
+            yield return new WaitForSeconds(0.02f);
+            camera.transform.position = new Vector3(0.25f, 1, -10);
             yield return new WaitForSeconds(0.02f);
             camera.transform.position = new Vector3(0, 1, -10);
             yield return new WaitForSeconds(0.02f);
+            camera.transform.position = new Vector3(-0.25f, 1, -10);
+            yield return new WaitForSeconds(0.02f);
+            camera.transform.position = new Vector3(-0.5f, 1, -10);
+            yield return new WaitForSeconds(0.02f);
+            camera.transform.position = new Vector3(-0.25f, 1, -10);
+            yield return new WaitForSeconds(0.02f);
+            camera.transform.position = new Vector3(0, 1, -10);
         }
     }
 }
