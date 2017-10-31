@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class selectionScript : MonoBehaviour {
     MeshFilter[] roofs = new MeshFilter[5];
@@ -18,6 +19,8 @@ public class selectionScript : MonoBehaviour {
 
     healthCalc hCalc;
     moneyCalc mCalc;
+
+    public static Material prevMaterial;
 
     void Start() {
         arrays[0] = roofs;
@@ -90,11 +93,18 @@ public class selectionScript : MonoBehaviour {
                 placeHolder = GameObject.FindGameObjectWithTag("extra");
                 break;
         }
-
+        prevMaterial = placeHolder.GetComponent<Renderer>().material;
+        Debug.Log(prevMaterial);
         placeHolder.GetComponent<MeshFilter>().mesh = arrays[category][choice].mesh;
         placeHolder.GetComponent<Renderer>().enabled = true;
         placeHolder.GetComponent<Renderer>().material = matArray[category][choice];
         healthCalc.newUpdate();
         moneyCalc.newUpdate();
+        if(moneyCalc.totalMoney < 0)
+        {
+            placeHolder.GetComponent<Renderer>().material = prevMaterial;
+            prevMaterial = matArray[category][choice];
+            moneyCalc.newUpdate();
+        }
     }
 }

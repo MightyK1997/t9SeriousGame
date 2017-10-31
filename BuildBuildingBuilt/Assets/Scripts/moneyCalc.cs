@@ -9,10 +9,11 @@ public class moneyCalc : MonoBehaviour {
     static string path;
     public static float totalMoney = 1000;
     static TextureDetails[] tDetails;
-    static List<GameObject> allObjectsInScreen = new List<GameObject>();
+    static List<GameObject> allObjectsInScreen;
+    static int prevMoney;
     // Use this for initialization
     void Start () {
-        allTagsToList();
+        
         path = Application.streamingAssetsPath + "/TextureDetails.json";
         string jsonString = File.ReadAllText(path);
         tDetails = FromJson(jsonString);
@@ -21,8 +22,13 @@ public class moneyCalc : MonoBehaviour {
 	
 	// Update is called once per frame
 	public static void newUpdate () {
+        allTagsToList();
         foreach (var item in tDetails)
         {
+            if (selectionScript.prevMaterial.name.StartsWith(item.name))
+            {
+                prevMoney = item.money;
+            }
             Debug.Log(item.money);
             foreach (var newObject in allObjectsInScreen)
             {
@@ -33,11 +39,13 @@ public class moneyCalc : MonoBehaviour {
                 }
             }
         }
+        totalMoney += prevMoney;
         totalMoney -= subtractMoney;
 	}
 
-    void allTagsToList()
+    static void allTagsToList()
     {
+        allObjectsInScreen = new List<GameObject>();
         GameObject placeHolder;
         placeHolder = GameObject.FindGameObjectWithTag("roof");
         allObjectsInScreen.Add(placeHolder);

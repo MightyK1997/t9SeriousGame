@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class healthCalc : MonoBehaviour {
 
-    public static float houseHealth;
+    public static float houseHealth = 50;
     static int roofHealth;
     static int foundationHealth;
     static int wall1Health;
@@ -16,20 +17,32 @@ public class healthCalc : MonoBehaviour {
     static TextureDetails tHealth;
     static Material[] allTextures;
     static TextureDetails[] tHealthList;
-    static List<GameObject> allObjectsInScreen = new List<GameObject>();
+    static List<GameObject> allObjectsInScreen;
+    static int prevHealth;
 	// Use this for initialization
 	void Start () {
-        allTagsToList();
+        
         path = Application.streamingAssetsPath + "/TextureDetails.json";
         string jsonString = File.ReadAllText(path);
         tHealthList = FromJson(jsonString);
     }
-	
-	// Update is called once per frame
-	public static void newUpdate () {
+
+    private void Update()
+    {
+        if (houseHealth <= 0)
+        {
+            SceneManager.LoadScene(2);
+            houseHealth = 50;
+            moneyCalc.totalMoney = 1000;
+        }
+    }
+
+    // Update is called once per frame
+    public static void newUpdate () {
+        allTagsToList();
         foreach (var item in tHealthList)
         {
-         //Debug.Log(item.money);
+            //Debug.Log(item.money);
             //foreach (var texture in allTextures)
             //{
             //    if (item.name == texture.name)
@@ -56,15 +69,21 @@ public class healthCalc : MonoBehaviour {
             //        }
             //    }
             //}
+            if (selectionScript.prevMaterial.name.StartsWith(item.name))
+            {
+                prevHealth = item.health;
+            }
             foreach (var newObject in allObjectsInScreen)
             {
-                //Debug.Log(newObject.GetComponent<MeshRenderer>().material.name);
+                Debug.Log(newObject);
+                //Debug.Log(newObject.GetComponent<MeshRenderer>().material.name.StartsWith(item.name));
                 if (newObject.GetComponent<MeshRenderer>().material.name.StartsWith(item.name))
                 {
                     roofHealth = item.health;
                 }
             }
         }
+        houseHealth -= (5 * prevHealth);
         houseHealth += (5 * roofHealth);
         //houseHealth = (roofHealth + foundationHealth + wall1Health + wall2Health + supportHealth).ToString();
     }
@@ -84,10 +103,12 @@ public class healthCalc : MonoBehaviour {
             houseHealth = houseHealth - subtractHealth;
         }
     }
-    void allTagsToList()
+    static void allTagsToList()
     {
+        allObjectsInScreen = new List<GameObject>();
         GameObject placeHolder;
         placeHolder = GameObject.FindGameObjectWithTag("roof");
+        Debug.Log(placeHolder);
         allObjectsInScreen.Add(placeHolder);
         placeHolder = GameObject.FindGameObjectWithTag("wall");
         allObjectsInScreen.Add(placeHolder);
