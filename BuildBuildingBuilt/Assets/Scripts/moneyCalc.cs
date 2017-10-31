@@ -12,36 +12,30 @@ public class moneyCalc : MonoBehaviour {
     static List<GameObject> allObjectsInScreen;
     static int prevMoney;
     // Use this for initialization
-    void Start () {
-        
+    void Start() {
+
         path = Application.streamingAssetsPath + "/TextureDetails.json";
         string jsonString = File.ReadAllText(path);
         tDetails = FromJson(jsonString);
         Debug.Log(tDetails);
     }
-	
-	// Update is called once per frame
-	public static void newUpdate () {
+
+    // Update is called once per frame
+    public static void newUpdate(GameObject newObject) {
         allTagsToList();
-        foreach (var item in tDetails)
-        {
-            if (selectionScript.prevMaterial.name.StartsWith(item.name))
-            {
+        foreach (var item in tDetails) {
+            if (selectionScript.prevMaterial.name.StartsWith(item.name)) {
                 prevMoney = item.money;
             }
-            Debug.Log(item.money);
-            foreach (var newObject in allObjectsInScreen)
-            {
-                //Debug.Log(newObject.GetComponent<MeshRenderer>().material.name);
-                if (newObject.GetComponent<MeshRenderer>().material.name.StartsWith(item.name))
-                {
-                    subtractMoney = item.money;
-                }
+            if (newObject.GetComponent<MeshRenderer>().material.name.StartsWith(item.name)) {
+                subtractMoney = item.money;
             }
         }
+
         totalMoney += prevMoney;
         totalMoney -= subtractMoney;
-	}
+        prevMoney = 0;
+    }
 
     static void allTagsToList()
     {

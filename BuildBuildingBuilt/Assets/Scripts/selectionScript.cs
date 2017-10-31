@@ -97,13 +97,14 @@ public class selectionScript : MonoBehaviour {
         placeHolder.GetComponent<MeshFilter>().mesh = arrays[category][choice].mesh;
         placeHolder.GetComponent<Renderer>().enabled = true;
         placeHolder.GetComponent<Renderer>().material = matArray[category][choice];
-        healthCalc.newUpdate();
-        moneyCalc.newUpdate();
+        healthCalc.newUpdate(placeHolder);
+        moneyCalc.newUpdate(placeHolder);
         if(moneyCalc.totalMoney < 0)
         {
             placeHolder.GetComponent<Renderer>().material = prevMaterial;
             prevMaterial = matArray[category][choice];
-            moneyCalc.newUpdate();
+            healthCalc.newUpdate(placeHolder);
+            moneyCalc.newUpdate(placeHolder);
         }
     }
 }
