@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class healthCalc : MonoBehaviour {
 
-    public static float houseHealth = 50;
+    public static float houseHealth = 500;
     static int roofHealth;
     static int foundationHealth;
     static int wall1Health;
@@ -64,7 +64,21 @@ public class healthCalc : MonoBehaviour {
         if (roof.activeSelf && foundation.activeSelf && wall1.activeSelf && wall2.activeSelf && support.activeSelf) {
             houseHealth = houseHealth - 50;
         }
+
+
+        StartCoroutine(sceneLoad());
     }
+
+    IEnumerator sceneLoad()
+    {
+        yield return new WaitForSeconds(4);
+
+        if(houseHealth > 0)
+        {
+            SceneManager.LoadScene(4);
+        }
+    }
+
     static void allTagsToList() {
         allObjectsInScreen = new List<GameObject>();
         GameObject placeHolder;

@@ -78,7 +78,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="BuildBuildingBuilt.Plugins.csproj">
+      <Project>{6B961433-4740-E14A-210A-E64BF6D4627C}</Project>
+      <Name>BuildBuildingBuilt.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Assets\Scripts\changeImageScript.cs" />
+    <Compile Include="Assets\Scripts\countdownTimer.cs" />
     <Compile Include="Assets\Scripts\healthCalc.cs" />
     <Compile Include="Assets\Scripts\LoadMainGame.cs" />
     <Compile Include="Assets\Scripts\mainMenuScript.cs" />
@@ -89,6 +96,13 @@
     <Compile Include="Assets\Scripts\shakeTheBooty.cs" />
     <Compile Include="Assets\Scripts\showHealth.cs" />
     <Compile Include="Assets\Scripts\showMoney.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
+    <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
+    <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
+    <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
+    <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
