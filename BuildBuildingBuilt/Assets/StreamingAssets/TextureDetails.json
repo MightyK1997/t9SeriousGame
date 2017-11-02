@@ -3,28 +3,28 @@
 	[
 					{
 						"name": "brickMat",
-						"health": "70",
-						"money": "100"
+						"health": "350",
+						"money": "500"
 					},
 					{
 						"name": "concreteMat",
-						"health": "20",
+						"health": "200",
 						"money": "300"
 					},
 					{
 						"name": "houseWallMat",
-						"health": "70",
-						"money": "100"
+						"health": "150",
+						"money": "200"
 
 					},
 					{
 						"name": "metalMat",
-						"health": "70",
-						"money": "100"
+						"health": "500",
+						"money": "1000"
 					},
 					{
 						"name": "woodMat",
-						"health": "70",
+						"health": "100",
 						"money": "100"
 					}
 

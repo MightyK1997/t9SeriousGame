@@ -21,6 +21,12 @@ public class healthCalc : MonoBehaviour {
     static int prevHealth;
     public GameObject originVersion;
     public GameObject destroyedVersion;
+
+    int woodMultiplier = 750;
+    int brickMultiplier = 1500;
+    int wallMultiplier = 1400;
+    int metalMultiplier = 2000;
+    int concreteMultiplier = 700;
     // Use this for initialization
     void Start() {
 
@@ -32,22 +38,41 @@ public class healthCalc : MonoBehaviour {
     private void Update() {
         if (houseHealth <= 0) {
 
-            Instantiate(destroyedVersion, transform.position, transform.rotation);
-            originVersion.SetActive(false);
-            Destroy(originVersion);
-            StartCoroutine(loadNextScreen());
+            //Instantiate(destroyedVersion, transform.position, transform.rotation);
+            //originVersion.SetActive(false);
+            //Destroy(originVersion);
+            StartCoroutine(loadNextScreen(2));
+
+        }
+
+        if (houseHealth > 500 && SceneManager.GetActiveScene().name.Equals("MainGameBuild"))
+        {
+            GameObject test = GameObject.Find("TestButton");
+            test.GetComponent<CanvasGroup>().alpha = 1.0f;
+            test.GetComponent<CanvasGroup>().interactable = true;
+            test.GetComponent<CanvasGroup>().blocksRaycasts = true;
 
         }
     }
-
-    IEnumerator loadNextScreen()
+    public void reset(int i)
+    {
+        StartCoroutine(loadOtherScreen(i));
+    }
+    IEnumerator loadNextScreen(int i)
     {
         yield return new WaitForSeconds(2);
-        SceneManager.LoadScene(2);
-        houseHealth = 50;
-        moneyCalc.totalMoney = 1000;
+        SceneManager.LoadScene(i);
+        houseHealth = 500;
+        moneyCalc.totalMoney = 5000;
     }
 
+    IEnumerator loadOtherScreen(int i)
+    {
+        SceneManager.LoadScene(i);
+        houseHealth = 500;
+        moneyCalc.totalMoney = 5000;
+        yield return new WaitForSeconds(0.0f);
+    }
     // Update is called once per frame
     public static void newUpdate(GameObject newObject) {
         allTagsToList();
@@ -74,10 +99,110 @@ public class healthCalc : MonoBehaviour {
        // GameObject wall2 = GameObject.FindGameObjectWithTag("extra");
         GameObject support = GameObject.FindGameObjectWithTag("support");
 
-        if (roof.activeSelf && foundation.activeSelf && wall1.activeSelf && support.activeSelf) {
-            houseHealth = houseHealth - 50;
+        GameObject[] rObjects = GameObject.FindGameObjectsWithTag("roof");
+        GameObject[] fObjects = GameObject.FindGameObjectsWithTag("foundation");
+        GameObject[] wObjects = GameObject.FindGameObjectsWithTag("wall");
+        GameObject[] sObjects = GameObject.FindGameObjectsWithTag("support");
+
+        int woodCount = 0, metalCount= 0, wallCount = 0, concCount =0, brickCount = 0;
+
+        foreach (var roofs in rObjects)
+        {
+            if (roofs.GetComponent<MeshRenderer>().material.name.StartsWith("wood"))
+            {
+                woodCount++;
+            }
+            if (roofs.GetComponent<MeshRenderer>().material.name.StartsWith("metal"))
+            {
+                metalCount++;
+            }
+            if (roofs.GetComponent<MeshRenderer>().material.name.StartsWith("brick"))
+            {
+                brickCount++;
+            }
+            if (roofs.GetComponent<MeshRenderer>().material.name.StartsWith("houseWall"))
+            {
+                wallCount++;
+            }
+            if (roofs.GetComponent<MeshRenderer>().material.name.StartsWith("concrete"))
+            {
+                concCount++;
+            }
+        }
+        foreach (var foundations in fObjects)
+        {
+            if (foundations.GetComponent<MeshRenderer>().material.name.StartsWith("wood"))
+            {
+                woodCount++;
+            }
+            if (foundations.GetComponent<MeshRenderer>().material.name.StartsWith("metal"))
+            {
+                metalCount++;
+            }
+            if (foundations.GetComponent<MeshRenderer>().material.name.StartsWith("brick"))
+            {
+                brickCount++;
+            }
+            if (foundations.GetComponent<MeshRenderer>().material.name.StartsWith("houseWall"))
+            {
+                wallCount++;
+            }
+            if (foundations.GetComponent<MeshRenderer>().material.name.StartsWith("concrete"))
+            {
+                concCount++;
+            }
+        }
+        foreach (var walls in wObjects)
+        {
+            if (walls.GetComponent<MeshRenderer>().material.name.StartsWith("wood"))
+            {
+                woodCount++;
+            }
+            if (walls.GetComponent<MeshRenderer>().material.name.StartsWith("metal"))
+            {
+                metalCount++;
+            }
+            if (walls.GetComponent<MeshRenderer>().material.name.StartsWith("brick"))
+            {
+                brickCount++;
+            }
+            if (walls.GetComponent<MeshRenderer>().material.name.StartsWith("houseWall"))
+            {
+                wallCount++;
+            }
+            if (walls.GetComponent<MeshRenderer>().material.name.StartsWith("concrete"))
+            {
+                concCount++;
+            }
+        }
+        foreach (var supports in sObjects)
+        {
+            if (supports.GetComponent<MeshRenderer>().material.name.StartsWith("wood"))
+            {
+                woodCount++;
+            }
+            if (supports.GetComponent<MeshRenderer>().material.name.StartsWith("metal"))
+            {
+                metalCount++;
+            }
+            if (supports.GetComponent<MeshRenderer>().material.name.StartsWith("brick"))
+            {
+                brickCount++;
+            }
+            if (supports.GetComponent<MeshRenderer>().material.name.StartsWith("houseWall"))
+            {
+                wallCount++;
+            }
+            if (supports.GetComponent<MeshRenderer>().material.name.StartsWith("concrete"))
+            {
+                concCount++;
+            }
         }
 
+
+        if (roof.activeSelf && foundation.activeSelf && wall1.activeSelf && support.activeSelf) {
+            houseHealth = houseHealth - ((woodCount * woodMultiplier) + (metalCount * metalMultiplier) + (brickCount * brickMultiplier) + (wallCount * wallMultiplier) + (concCount * concreteMultiplier));
+        }
 
         StartCoroutine(sceneLoad());
     }

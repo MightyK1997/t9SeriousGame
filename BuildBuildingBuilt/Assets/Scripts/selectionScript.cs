@@ -16,7 +16,8 @@ public class selectionScript : MonoBehaviour {
     Material[] supportMat = new Material[5];
     //Material[] extraMat = new Material[5];
     Material[][] matArray = new Material[5][];
-
+    float money;
+    float health;
     healthCalc hCalc;
     moneyCalc mCalc;
 
@@ -38,6 +39,8 @@ public class selectionScript : MonoBehaviour {
 
     public void selectPart(int choice) {
         int category;
+        money = moneyCalc.totalMoney;
+        health = healthCalc.houseHealth;
         GameObject[] placeHolder = null;
 
         //Initialize meshes
@@ -99,12 +102,10 @@ public class selectionScript : MonoBehaviour {
             //    placeHolder = GameObject.FindGameObjectsWithTag("extra");
             //    break;
         }
-        foreach (var item in placeHolder)
+        for(int i = 0; i < placeHolder.Length; i++)
         {
-
-
+            GameObject item = placeHolder[i];
             prevMaterial = item.GetComponent<MeshRenderer>().material;
-            Debug.Log(item.GetComponent<MeshRenderer>().enabled);
             //item.GetComponent<MeshFilter>().mesh = arrays[category][choice].mesh;
             item.GetComponent<MeshRenderer>().enabled = true;
             item.GetComponent<MeshRenderer>().material = matArray[category][choice];
@@ -112,11 +113,14 @@ public class selectionScript : MonoBehaviour {
             moneyCalc.newUpdate(item);
             if (moneyCalc.totalMoney < 0)
             {
-                item.GetComponent<MeshRenderer>().material = prevMaterial;
-                prevMaterial = matArray[category][choice];
-                healthCalc.newUpdate(item);
-                moneyCalc.newUpdate(item);
+                for( int j = 0; j < placeHolder.Length; j++) {
+                    placeHolder[j].GetComponent<MeshRenderer>().material = prevMaterial;
+                }
+                healthCalc.houseHealth = health;
+                moneyCalc.totalMoney = money;
+                break;
             }
+            
         }
     }
 }

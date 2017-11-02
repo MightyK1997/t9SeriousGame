@@ -7,7 +7,7 @@ public class moneyCalc : MonoBehaviour {
 
     static int subtractMoney;
     static string path;
-    public static float totalMoney = 1500;
+    public static float totalMoney = 5000;
     static TextureDetails[] tDetails;
     static List<GameObject> allObjectsInScreen;
     static int prevMoney;
@@ -25,13 +25,15 @@ public class moneyCalc : MonoBehaviour {
         allTagsToList();
         foreach (var item in tDetails) {
             if (selectionScript.prevMaterial.name.StartsWith(item.name)) {
+               // Debug.Log("prev " + selectionScript.prevMaterial.name);
                 prevMoney = item.money;
             }
             if (newObject.GetComponent<MeshRenderer>().material.name.StartsWith(item.name)) {
+               // Debug.Log(newObject.GetComponent<MeshRenderer>().material.name);
                 subtractMoney = item.money;
             }
         }
-
+        Debug.Log("new object");
         totalMoney += prevMoney;
         totalMoney -= subtractMoney;
         prevMoney = 0;

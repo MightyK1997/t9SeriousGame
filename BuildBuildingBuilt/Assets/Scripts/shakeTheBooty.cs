@@ -15,7 +15,7 @@ public class shakeTheBooty : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        myButton = GameObject.Find("Button");
+        myButton = GameObject.Find("TestButton");
         myButton.GetComponent<Button>().onClick.AddListener(middleFunction);
     }
 
