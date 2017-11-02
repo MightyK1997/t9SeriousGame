@@ -7,14 +7,14 @@ public class selectionScript : MonoBehaviour {
     MeshFilter[] walls = new MeshFilter[5];
     MeshFilter[] foundations = new MeshFilter[5];
     MeshFilter[] supports = new MeshFilter[5];
-    MeshFilter[] extras = new MeshFilter[5];
+    //MeshFilter[] extras = new MeshFilter[5];
     MeshFilter[][] arrays = new MeshFilter[5][];
 
     Material[] roofMat = new Material[5];
     Material[] wallMat = new Material[5];
     Material[] foundationMat = new Material[5];
     Material[] supportMat = new Material[5];
-    Material[] extraMat = new Material[5];
+    //Material[] extraMat = new Material[5];
     Material[][] matArray = new Material[5][];
 
     healthCalc hCalc;
@@ -27,35 +27,41 @@ public class selectionScript : MonoBehaviour {
         arrays[1] = walls;
         arrays[2] = foundations;
         arrays[3] = supports;
-        arrays[4] = extras;
+        //arrays[4] = extras;
 
         matArray[0] = roofMat;
         matArray[1] = wallMat;
         matArray[2] = foundationMat;
         matArray[3] = supportMat;
-        matArray[4] = extraMat;
+        //matArray[4] = extraMat;
     }
 
     public void selectPart(int choice) {
         int category;
-        GameObject placeHolder = null;
+        GameObject[] placeHolder = null;
 
         //Initialize meshes
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 5; j++) {
-                 arrays[i][j] = GameObject.Find("test2").GetComponent<MeshFilter>();
+                 arrays[i][j] = GameObject.Find("BrickMatReplace").GetComponent<MeshFilter>();
             }
         }
 
         //Initialize materials
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 2; j++) {
-                matArray[i][j] = GameObject.Find("test2").GetComponent<Renderer>().material;
-            }
-            for(int j = 2; j < 5; j++)
-            {
-                matArray[i][j] = GameObject.Find("test3").GetComponent<Renderer>().material;
-            }
+        for (int i = 0; i < 4; i++) {
+            //for (int j = 0; j < 2; j++) {
+            //    matArray[i][j] = GameObject.Find("test2").GetComponent<Renderer>().material;
+            //}
+            //for(int j = 2; j < 5; j++)
+            //{
+            //    matArray[i][j] = GameObject.Find("test3").GetComponent<Renderer>().material;
+            //}
+
+            matArray[i][0] = GameObject.Find("BrickMatReplace").GetComponent<Renderer>().material;
+            matArray[i][1] = GameObject.Find("ConcreteMatReplace").GetComponent<Renderer>().material;
+            matArray[i][2] = GameObject.Find("HouseWallMatReplace").GetComponent<Renderer>().material;
+            matArray[i][3] = GameObject.Find("WoodMatReplace").GetComponent<Renderer>().material;
+            matArray[i][4] = GameObject.Find("MetalMatReplace").GetComponent<Renderer>().material;
         }
         
 
@@ -78,33 +84,39 @@ public class selectionScript : MonoBehaviour {
 
         switch (category) {
             case 0:
-                placeHolder = GameObject.FindGameObjectWithTag("roof");
+                placeHolder = GameObject.FindGameObjectsWithTag("roof");
                 break;
             case 1:
-                placeHolder = GameObject.FindGameObjectWithTag("wall");
+                placeHolder = GameObject.FindGameObjectsWithTag("wall");
                 break;
             case 2:
-                placeHolder = GameObject.FindGameObjectWithTag("foundation");
+                placeHolder = GameObject.FindGameObjectsWithTag("foundation");
                 break;
             case 3:
-                placeHolder = GameObject.FindGameObjectWithTag("support");
+                placeHolder = GameObject.FindGameObjectsWithTag("support");
                 break;
-            case 4:
-                placeHolder = GameObject.FindGameObjectWithTag("extra");
-                break;
+            //case 4:
+            //    placeHolder = GameObject.FindGameObjectsWithTag("extra");
+            //    break;
         }
-        prevMaterial = placeHolder.GetComponent<Renderer>().material;
-        placeHolder.GetComponent<MeshFilter>().mesh = arrays[category][choice].mesh;
-        placeHolder.GetComponent<Renderer>().enabled = true;
-        placeHolder.GetComponent<Renderer>().material = matArray[category][choice];
-        healthCalc.newUpdate(placeHolder);
-        moneyCalc.newUpdate(placeHolder);
-        if(moneyCalc.totalMoney < 0)
+        foreach (var item in placeHolder)
         {
-            placeHolder.GetComponent<Renderer>().material = prevMaterial;
-            prevMaterial = matArray[category][choice];
-            healthCalc.newUpdate(placeHolder);
-            moneyCalc.newUpdate(placeHolder);
+
+
+            prevMaterial = item.GetComponent<MeshRenderer>().material;
+            Debug.Log(item.GetComponent<MeshRenderer>().enabled);
+            //item.GetComponent<MeshFilter>().mesh = arrays[category][choice].mesh;
+            item.GetComponent<MeshRenderer>().enabled = true;
+            item.GetComponent<MeshRenderer>().material = matArray[category][choice];
+            healthCalc.newUpdate(item);
+            moneyCalc.newUpdate(item);
+            if (moneyCalc.totalMoney < 0)
+            {
+                item.GetComponent<MeshRenderer>().material = prevMaterial;
+                prevMaterial = matArray[category][choice];
+                healthCalc.newUpdate(item);
+                moneyCalc.newUpdate(item);
+            }
         }
     }
 }

@@ -2,28 +2,28 @@
 	"textures":
 	[
 					{
-						"name": "testMaterial",
+						"name": "brickMat",
 						"health": "70",
 						"money": "100"
 					},
 					{
-						"name": "material2",
+						"name": "concreteMat",
 						"health": "20",
 						"money": "300"
 					},
 					{
-						"name": "test3Material",
+						"name": "houseWallMat",
 						"health": "70",
 						"money": "100"
 
 					},
 					{
-						"name": "test4Material",
+						"name": "metalMat",
 						"health": "70",
 						"money": "100"
 					},
 					{
-						"name": "test5Material",
+						"name": "woodMat",
 						"health": "70",
 						"money": "100"
 					}

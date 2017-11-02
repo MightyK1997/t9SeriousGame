@@ -19,6 +19,8 @@ public class healthCalc : MonoBehaviour {
     static TextureDetails[] tHealthList;
     static List<GameObject> allObjectsInScreen;
     static int prevHealth;
+    public GameObject originVersion;
+    public GameObject destroyedVersion;
     // Use this for initialization
     void Start() {
 
@@ -29,10 +31,21 @@ public class healthCalc : MonoBehaviour {
 
     private void Update() {
         if (houseHealth <= 0) {
-            SceneManager.LoadScene(2);
-            houseHealth = 50;
-            moneyCalc.totalMoney = 1000;
+
+            Instantiate(destroyedVersion, transform.position, transform.rotation);
+            originVersion.SetActive(false);
+            Destroy(originVersion);
+            StartCoroutine(loadNextScreen());
+
         }
+    }
+
+    IEnumerator loadNextScreen()
+    {
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(2);
+        houseHealth = 50;
+        moneyCalc.totalMoney = 1000;
     }
 
     // Update is called once per frame
@@ -58,10 +71,10 @@ public class healthCalc : MonoBehaviour {
         GameObject roof = GameObject.FindGameObjectWithTag("roof");
         GameObject foundation = GameObject.FindGameObjectWithTag("foundation");
         GameObject wall1 = GameObject.FindGameObjectWithTag("wall");
-        GameObject wall2 = GameObject.FindGameObjectWithTag("extra");
+       // GameObject wall2 = GameObject.FindGameObjectWithTag("extra");
         GameObject support = GameObject.FindGameObjectWithTag("support");
 
-        if (roof.activeSelf && foundation.activeSelf && wall1.activeSelf && wall2.activeSelf && support.activeSelf) {
+        if (roof.activeSelf && foundation.activeSelf && wall1.activeSelf && support.activeSelf) {
             houseHealth = houseHealth - 50;
         }
 
